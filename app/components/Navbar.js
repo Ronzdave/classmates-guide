@@ -9,24 +9,24 @@ export default function Navbar() {
 
   return (
     <nav className={styles.navbar}>
-      <Link href="/" className={styles.logo}>
-        🎓 Classmate Guide
-      </Link>
-      <div className={styles.links}>
-        <Link
-          href="/"
-          className={`${styles.link} ${pathname === "/" ? styles.active : ""}`}
-        >
-          Home
+      <div className={styles.inner}>
+        <Link href="/" className={styles.logo}>
+          🎓 ClassmateGuide
         </Link>
-        <Link
-          href="/classmates"
-          className={`${styles.link} ${
-            pathname === "/classmates" ? styles.active : ""
-          }`}
-        >
-          All Classmates
-        </Link>
+        <div className={styles.links}>
+          <Link
+            href="/"
+            className={`${styles.navLink} ${pathname === "/" ? styles.active : ""}`}
+          >
+            Home
+          </Link>
+          <Link
+            href="/classmates"
+            className={`${styles.navLink} ${pathname === "/classmates" ? styles.active : ""}`}
+          >
+            All Classmates
+          </Link>
+        </div>
       </div>
     </nav>
   );
