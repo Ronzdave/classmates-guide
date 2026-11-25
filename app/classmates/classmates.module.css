@@ -1,46 +1,82 @@
 .header {
-  padding: 48px 0 16px;
+  padding: 56px 0 24px;
+  animation: fadeInUp 0.5s var(--ease) both;
 }
 
 .eyebrow {
+  display: inline-block;
   font-size: 0.72rem;
   font-weight: 600;
-  color: #2563eb;
+  color: #93c5fd;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  padding: 5px 12px;
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  border-radius: 999px;
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  letter-spacing: -0.02em;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
 .subtitle {
   font-size: 1.05rem;
-  color: #4b4b4b;
-  margin-top: 12px;
+  color: var(--ink-3);
+  margin-top: 14px;
   line-height: 1.65;
+  max-width: 580px;
+}
+
+.toolbar {
+  margin-top: 28px;
+  margin-bottom: 40px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.toolbarLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .legend {
-  margin-top: 24px;
-  margin-bottom: 40px;
   display: flex;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 20px;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 600;
+  transition: all var(--t-med) var(--ease);
+  cursor: default;
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -4px currentColor;
 }
 
 .dot {
@@ -48,10 +84,29 @@
   height: 10px;
   border-radius: 50%;
   display: inline-block;
+  box-shadow: 0 0 10px currentColor;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
+}
+
+.grid > :nth-child(1)  { animation-delay: 0.05s; }
+.grid > :nth-child(2)  { animation-delay: 0.1s; }
+.grid > :nth-child(3)  { animation-delay: 0.15s; }
+.grid > :nth-child(4)  { animation-delay: 0.2s; }
+.grid > :nth-child(5)  { animation-delay: 0.25s; }
+.grid > :nth-child(6)  { animation-delay: 0.3s; }
+.grid > :nth-child(7)  { animation-delay: 0.35s; }
+.grid > :nth-child(8)  { animation-delay: 0.4s; }
+.grid > :nth-child(9)  { animation-delay: 0.45s; }
+.grid > :nth-child(10) { animation-delay: 0.5s; }
+.grid > :nth-child(11) { animation-delay: 0.55s; }
+.grid > :nth-child(12) { animation-delay: 0.6s; }
+
+@media (max-width: 640px) {
+  .title { font-size: 2rem; }
+  .toolbar { flex-direction: column; align-items: flex-start; }
 }

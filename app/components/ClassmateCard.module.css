@@ -1,48 +1,193 @@
 .card {
-  background: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 16px;
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.35s var(--ease),
+              box-shadow 0.35s var(--ease),
+              border-color 0.35s var(--ease);
   display: flex;
   flex-direction: column;
+  animation: fadeInUp 0.5s var(--ease) both;
+  isolation: isolate;
+}
+
+/* glow aura behind the card that lights up on hover */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg,
+    var(--cat-color, #3b82f6),
+    transparent 40%,
+    transparent 60%,
+    var(--cat-color, #3b82f6));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* holographic shine that sweeps across on hover */
+.card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 45%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.08) 55%,
+    transparent 70%
+  );
+  transform: translateX(-100%) rotate(35deg);
+  pointer-events: none;
+  z-index: 3;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  transform: translateY(-10px) scale(1.015);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 48px -8px var(--cat-color, #3b82f6);
   border-color: transparent;
 }
 
+.card:hover::before {
+  opacity: 1;
+  animation: borderPulse 2s ease-in-out infinite;
+}
+
+.card:hover::after {
+  animation: holoShine 1.2s var(--ease) forwards;
+}
+
 .accent {
-  height: 4px;
+  height: 5px;
   width: 100%;
+  position: relative;
+  box-shadow: 0 0 20px var(--cat-color, #3b82f6);
+}
+
+.accent::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.8s var(--ease);
+}
+
+.card:hover .accent::after {
+  transform: translateX(100%);
 }
 
 .content {
-  padding: 28px 24px 24px;
+  padding: 28px 24px 26px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+/* emoji platform */
+.emojiStage {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 4px;
 }
 
 .emojiCircle {
-  width: 56px;
-  height: 56px;
+  position: relative;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
   flex-shrink: 0;
+  transition: transform 0.4s var(--ease-bounce);
 }
 
+.emoji {
+  font-size: 2rem;
+  display: inline-block;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.35));
+  transition: transform var(--t-med) var(--ease);
+}
+
+.card:hover .emoji {
+  animation: bounce 0.8s var(--ease-bounce);
+}
+
+.ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1.5px dashed;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+}
+
+.card:hover .emojiCircle {
+  transform: scale(1.1) rotate(-8deg);
+}
+
+.card:hover .ring {
+  opacity: 1;
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* sparkle particles around emoji on hover */
+.sparkle {
+  position: absolute;
+  font-size: 0.9rem;
+  pointer-events: none;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.card:hover .sparkle {
+  animation: sparkle 1.4s ease-in-out infinite;
+}
+
+.sparkle1 { top: -4px;  right: -6px;  animation-delay: 0s !important; color: #fde047; }
+.sparkle2 { bottom: -4px; left: -8px; animation-delay: 0.3s !important; color: #f0abfc; }
+.sparkle3 { top: 50%;   right: -12px; animation-delay: 0.6s !important; color: #7dd3fc; }
+.sparkle4 { bottom: 10px; right: 0;   animation-delay: 0.9s !important; color: #fda4af; }
+
 .name {
-  margin-top: 16px;
-  font-size: 1.1rem;
+  margin-top: 18px;
+  font-size: 1.15rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  transition: transform var(--t-med) var(--ease);
+}
+
+.card:hover .name {
+  transform: translateX(4px);
 }
 
 .tag {
@@ -52,14 +197,19 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 4px 12px;
-  border-radius: 20px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  transition: transform var(--t-med) var(--ease);
+}
+
+.card:hover .tag {
+  transform: translateX(4px);
 }
 
 .trait {
   margin-top: 14px;
   font-size: 0.88rem;
-  color: #6b6b6b;
+  color: var(--ink-3);
   font-style: italic;
   line-height: 1.5;
 }
@@ -67,6 +217,6 @@
 .description {
   margin-top: 10px;
   font-size: 0.9rem;
-  color: #444;
+  color: var(--ink-2);
   line-height: 1.65;
 }

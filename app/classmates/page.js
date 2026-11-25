@@ -136,35 +136,38 @@ const classmates = [
 ];
 
 const legend = [
-  { label: "The Academics", dot: "#3b82f6", bg: "#eff6ff", text: "#1d4ed8" },
-  { label: "The Personalities", dot: "#8b5cf6", bg: "#f5f3ff", text: "#6d28d9" },
-  { label: "The Social Ones", dot: "#f59e0b", bg: "#fffbeb", text: "#b45309" },
-  { label: "The Wildcards", dot: "#f43f5e", bg: "#fff1f2", text: "#be123c" },
+  { label: "The Academics",     dot: "#60a5fa", bg: "rgba(59, 130, 246, 0.12)", text: "#93c5fd", border: "rgba(59, 130, 246, 0.35)" },
+  { label: "The Personalities", dot: "#a78bfa", bg: "rgba(139, 92, 246, 0.12)", text: "#c4b5fd", border: "rgba(139, 92, 246, 0.35)" },
+  { label: "The Social Ones",   dot: "#fbbf24", bg: "rgba(245, 158, 11, 0.12)", text: "#fcd34d", border: "rgba(245, 158, 11, 0.35)" },
+  { label: "The Wildcards",     dot: "#fb7185", bg: "rgba(244, 63, 94, 0.12)",  text: "#fda4af", border: "rgba(244, 63, 94, 0.35)" },
 ];
 
 export default function ClassmatesPage() {
   return (
     <>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>COMPLETE COLLECTION</p>
+        <span className={styles.eyebrow}>Complete Collection</span>
         <h1 className={styles.title}>All Classmate Types</h1>
         <p className={styles.subtitle}>
-          The full lineup of 12 classmate types across 4 categories. How many do
-          you recognize?
+          The full lineup of 12 classmate types across 4 categories. How many
+          do you recognize from your own classroom?
         </p>
       </header>
 
-      <div className={styles.legend}>
-        {legend.map((l) => (
-          <span
-            key={l.label}
-            className={styles.pill}
-            style={{ backgroundColor: l.bg, color: l.text }}
-          >
-            <span className={styles.dot} style={{ backgroundColor: l.dot }} />
-            {l.label}
-          </span>
-        ))}
+      <div className={styles.toolbar}>
+        <span className={styles.toolbarLabel}>Filter by category</span>
+        <div className={styles.legend}>
+          {legend.map((l) => (
+            <span
+              key={l.label}
+              className={styles.pill}
+              style={{ backgroundColor: l.bg, color: l.text, border: `1px solid ${l.border}` }}
+            >
+              <span className={styles.dot} style={{ backgroundColor: l.dot, color: l.dot }} />
+              {l.label}
+            </span>
+          ))}
+        </div>
       </div>
 
       <div className={styles.grid}>

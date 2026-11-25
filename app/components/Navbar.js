@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from "./Logo";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
@@ -11,7 +12,10 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.inner}>
         <Link href="/" className={styles.logo}>
-          🎓 ClassmateGuide
+          <Logo size={34} />
+          <span className={styles.wordmark}>
+            Classmate<span className={styles.wordmarkAccent}>Guide</span>
+          </span>
         </Link>
         <div className={styles.links}>
           <Link
